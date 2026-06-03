@@ -1,72 +1,64 @@
->Project Name:  Aether Wallet — Personal Expense Tracker
+> Project Name : " Aether Wallet — Personal Expense Tracker"
 
-A browser-based personal expense tracker built with vanilla HTML, CSS, and JavaScript. Created for the Friendsware Solutions 2025 Summer Internship Program.
-
-
-
-> Project Files
-
-- `index.html` — App layout and all page structure
-- `style.css` — Visual styling, animations, and theme
-- `app.js` — All logic: state management, validation, rendering, events
-
-
-> Features
-
-- Add an expense with a title, amount (PKR), and category
-- Running total updates automatically on every add or delete
-- Filter transaction history by category
-- Delete any transaction with a fade-out animation
-- Real-time inline form validation with error messages
-- Empty state message when no transactions exist
+A clean, browser-based expense tracker built with vanilla HTML, CSS, and JavaScript. Created for the Friendsware Solutions 2025 Summer Internship Program.
 
 
 
-> How to Run
+ > Features:
 
-No installation or build tools needed.
+- Add Expenses — Log a transaction with a title, amount (PKR), and category
+- Live Total — Running total updates automatically with every add or delete
+- Category Filter — Filter the transaction history by category
+- Delete Transactions — Remove any entry with a smooth fade-out animation
+- Form Validation — Real-time inline error messages for all fields
+- Empty State — Friendly message shown when no transactions exist
+
+
+
+>Project Structure:
+
+
+├── index.html   # App layout and markup
+├── style.css    # Styling, animations, and theme variables
+└── app.js       # All logic  state, validation, rendering, events
+
+
+
+
+> How to Run:
+
+No build tools or dependencies required.
 
 1. Download or clone the project folder
-2. Open `index.html` in any modern browser
+2. Open 'index.html' in any modern browser
 
-The app runs entirely in the browser with no server required.
+That's it  the app runs entirely in the browser.
 
 
 
-> Expense Categories
+> Expense Categories:
 
-| Category      | Examples                          |
-|---------------|-----------------------------------|
-| Food          | Meals, groceries, dining out      |
-| Transport     | Fuel, bus fares, ride-hailing     |
-| Utilities     | Electricity, internet, phone bills|
-| Entertainment | Streaming, events, leisure        |
-| Other         | Anything that does not fit above  |
+| Category      | Description               |
+|---------------|---------------------------|
+| Food          | Meals, groceries, dining  |
+| Transport     | Fuel, fares, rides        |
+| Utilities     | Bills, internet, services |
+| Entertainment | Leisure, subscriptions    |
+| Other         | Anything else             |
 
- 
 
-> How the Logic Works
 
-- Expenses are stored in a JavaScript array in memory — data resets on page refresh
+> How It Works:
+
+- Expenses are stored in a JavaScript array in memory (data resets on page refresh)
 - Each expense gets a unique ID using `Date.now()`
 - The table re-renders whenever an expense is added, deleted, or the filter changes
-- User input is sanitized via `escapeHTML()` to prevent XSS attacks
-- Form validation runs in real-time on each field and again on submit
- 
+- User input is sanitized with `escapeHTML()` to prevent XSS
 
-> Tech Stack
 
-- HTML5 — Semantic page structure
-- CSS3 — Glassmorphism design, custom properties, keyframe animations
-- JavaScript (ES6+) — DOM manipulation, event handling, array-based state
+> Tech Stack:
+
+- HTML5 — Semantic structure
+- CSS3 — Custom properties, glassmorphism, keyframe animations
+- JavaScript (ES6+) — DOM manipulation, event handling, array state management
 - Google Fonts — Outfit & Plus Jakarta Sans
-
-
-
-> Current Progress
-
-I am currently working on this project. At this stage, only the HTML structure is built. In the next steps, I will add **CSS** for styling, layout, and theming — followed by **JavaScript** for interactivity and dynamic behavior.
-
- 
-
-© 2025 Friendsware Solutions · Summer Internship Program · Screening Task
