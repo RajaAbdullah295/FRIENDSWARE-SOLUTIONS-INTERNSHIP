@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether Wallet — Personal Expense Tracker</title>
+  
+  <!-- Meta tags for SEO & aesthetic quality -->
+  <meta name="description" content="A highly premium, state-of-the-art personal expense tracker created for Friendsware Solutions 2025 Summer Internship.">
+  <meta name="theme-color" content="#080b11">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <div class="brand-container">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0 1 15.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5h.007v.008H3.75V4.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0ZM3 13.5h.008v.008H3V13.5Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 12h18" />
+        </svg>
+      </div>
+      <h1>Aether Wallet</h1>
+    </div>
+    <p>Elegant expense orchestration for high-performers.</p>
+  </header>
+
+  <main>
+    <div class="app-grid">
+      
+      <!-- LEFT SECTION: ADD EXPENSE FORM -->
+      <section class="card" aria-labelledby="form-heading">
+        <h2 id="form-heading" class="card-title">
+          <svg style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+          Add Expense
+        </h2>
+        
+        <form id="expense-form" novalidate>
+          
+          <!-- Expense Title Field -->
+          <div class="form-group">
+            <label for="expense-title" class="form-label">Expense Title</label>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="expense-title" 
+                class="form-control" 
+                placeholder="e.g., Office Lunch, Utility Bill" 
+                autocomplete="off"
+              >
+              <svg class="input-icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+            </div>
+            <span id="title-error" class="error-msg" role="alert">Please enter a valid expense title.</span>
+          </div>
+
+          <!-- Expense Amount Field -->
+          <div class="form-group">
+            <label for="expense-amount" class="form-label">Amount (PKR)</label>
+            <div class="input-wrapper">
+              <input 
+                type="number" 
+                id="expense-amount" 
+                class="form-control" 
+                placeholder="Enter positive number" 
+                min="0.01" 
+                step="any"
+              >
+              <svg class="input-icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-1.971-.659-1.171-.879-1.171-2.303 0-3.182 1.171-.879 3.07-.879 4.242 0M9 9.75h6" />
+              </svg>
+            </div>
+            <span id="amount-error" class="error-msg" role="alert">Amount must be a positive number greater than 0.</span>
+          </div>
+
+          <!-- Expense Category Field -->
+          <div class="form-group">
+            <label for="expense-category" class="form-label">Category</label>
+            <div class="input-wrapper">
+              <select id="expense-category" class="form-control">
+                <option value="" disabled selected>Select a category</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+              </select>
+              <svg class="input-icon" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581a2.25 2.25 0 003.182 0l4.318-4.318a2.25 2.25 0 000-3.182L11.16 3.659A2.25 2.25 0 009.568 3z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6z" />
+              </svg>
+            </div>
+            <span id="category-error" class="error-msg" role="alert">Please select an expense category.</span>
+          </div>
+
+          <button type="submit" class="btn-submit" id="btn-submit-expense">
+            Add Transaction
+            <svg style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5;" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+          </button>
+        </form>
+      </section>
+
+      <!-- RIGHT SECTION: METRICS & EXPENSE TABLE -->
+      <section class="overview-section" aria-labelledby="overview-heading">
+        <h2 id="overview-heading" class="sr-only" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;">Overview Dashboard</h2>
+        
+        <!-- Total Card -->
+        <article class="card total-card">
+          <p class="total-label">Total Outflow</p>
+          <div class="total-amount" id="total-amount-display">PKR 0</div>
+        </article>
+
+        <!-- Expense Table Card -->
+        <article class="card" style="padding-top: 1.5rem;">
+          <div class="table-controls">
+            <h2>History</h2>
+            
+            <!-- Category Filter Dropdown (Bonus Requirement) -->
+            <div class="filter-wrapper">
+              <label for="category-filter">Filter:</label>
+              <select id="category-filter" class="select-filter">
+                <option value="all">All Categories</option>
+                <option value="Food">Food</option>
+                <option value="Transport">Transport</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table Wrapper for Responsiveness -->
+          <div class="table-container">
+            <table id="expense-table">
+              <thead>
+                <tr>
+                  <th style="width: 40%">Title</th>
+                  <th style="width: 22%">Category</th>
+                  <th style="width: 25%">Amount</th>
+                  <th style="width: 13%; text-align: center;">Delete</th>
+                </tr>
+              </thead>
+              <tbody id="expense-table-body">
+                <!-- Dynamically populated rows or Empty State will go here -->
+              </tbody>
+            </table>
+          </div>
+        </article>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Friendsware Solutions · Summer Internship Program · Screening Task</p>
+    
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
