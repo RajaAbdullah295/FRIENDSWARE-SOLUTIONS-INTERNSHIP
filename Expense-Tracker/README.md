@@ -1,4 +1,6 @@
 > Project Name : " Aether Wallet — Personal Expense Tracker"
+>Link : https://6a1ffc47b5f1dd007d31648c--warm-cajeta-52f064.netlify.app/
+//Host the frontend application on Netlify with a free domain provided by Netlify.
 
 A clean, browser-based expense tracker built with vanilla HTML, CSS, and JavaScript. Created for the Friendsware Solutions 2025 Summer Internship Program.
 
