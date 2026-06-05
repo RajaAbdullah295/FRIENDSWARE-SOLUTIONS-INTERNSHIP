@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="logo.png">
-  <title>Aether Wallet — Personal Expense Tracker</title>
+  <title >Aether Wallet — Personal Expense Tracker</title>
   
   
   <meta name="description" content="A highly premium, state-of-the-art personal expense tracker created for Friendsware Solutions 2025 Summer Internship.">
@@ -30,18 +30,23 @@
   <main>
     <div class="app-grid">
       
-      <!-- LEFT SECTION: ADD EXPENSE FORM -->
-      <section class="card" aria-labelledby="form-heading">
+      
+      <section class="card" id="form-card" aria-labelledby="form-heading">
         <h2 id="form-heading" class="card-title">
           <svg style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2;" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
           </svg>
-          Add Expense
+          <span id="form-action-title">Add Expense</span>
         </h2>
+
+       
+        <div id="edit-banner" class="edit-banner">
+          <span class="edit-banner-text">Editing transaction details...</span>
+        </div>
         
         <form id="expense-form" novalidate>
           
-          
+         
           <div class="form-group">
             <label for="expense-title" class="form-label">Expense Title</label>
             <div class="input-wrapper">
@@ -98,12 +103,20 @@
             <span id="category-error" class="error-msg" role="alert">Please select an expense category.</span>
           </div>
 
-          <button type="submit" class="btn-submit" id="btn-submit-expense">
-            Add Transaction
-            <svg style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5;" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-            </svg>
-          </button>
+          <div class="form-actions-row">
+            <button type="submit" class="btn-submit" id="btn-submit-expense">
+              <span id="btn-submit-text">Add Transaction</span>
+              <svg id="btn-submit-icon" style="width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2.5;" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </button>
+            <button type="button" class="btn-cancel-edit" id="btn-cancel-edit">
+              Cancel
+              <svg style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2.5;" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </form>
       </section>
 
@@ -118,33 +131,60 @@
         </article>
 
         
+        <article class="card breakdown-card" id="breakdown-card">
+          <h3 class="breakdown-title">Category Breakdown</h3>
+          <div id="category-breakdown-list" class="breakdown-list">
+            <!-- Dynamically populated per-category sums go here -->
+          </div>
+        </article>
+
+        
         <article class="card" style="padding-top: 1.5rem;">
           <div class="table-controls">
             <h2>History</h2>
             
-            
-            <div class="filter-wrapper">
-              <label for="category-filter">Filter:</label>
-              <select id="category-filter" class="select-filter">
-                <option value="all">All Categories</option>
-                <option value="Food">Food</option>
-                <option value="Transport">Transport</option>
-                <option value="Utilities">Utilities</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Other">Other</option>
-              </select>
+            <div class="controls-group">
+              
+              <div class="filter-wrapper">
+                <label for="category-filter">Filter:</label>
+                <select id="category-filter" class="select-filter">
+                  <option value="all">All Categories</option>
+                  <option value="Food">Food</option>
+                  <option value="Transport">Transport</option>
+                  <option value="Utilities">Utilities</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              
+              <div class="sort-wrapper">
+                <span class="sort-label">Sort:</span>
+                <div class="sort-buttons">
+                  <button type="button" class="btn-sort" id="btn-sort-asc" title="Sort by Amount: Low to High" aria-label="Sort Ascending">
+                    <svg viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12" />
+                    </svg>
+                  </button>
+                  <button type="button" class="btn-sort" id="btn-sort-desc" title="Sort by Amount: High to Low" aria-label="Sort Descending">
+                    <svg viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m1.5 5.25L18 21.75m0 0l3.75-3.75M18 21.75V9" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
 
-          
+           
           <div class="table-container">
             <table id="expense-table">
               <thead>
                 <tr>
-                  <th style="width: 40%">Title</th>
+                  <th style="width: 38%">Title</th>
                   <th style="width: 22%">Category</th>
-                  <th style="width: 25%">Amount</th>
-                  <th style="width: 13%; text-align: center;">Delete</th>
+                  <th style="width: 22%">Amount</th>
+                  <th style="width: 18%; text-align: center;">Actions</th>
                 </tr>
               </thead>
               <tbody id="expense-table-body">
