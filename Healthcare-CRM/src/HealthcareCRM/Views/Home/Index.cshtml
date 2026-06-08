@@ -1,0 +1,162 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container py-2">
+    <!-- Top Greeting Section -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="d-flex flex-column gap-1">
+                <span class="text-secondary text-uppercase fw-bold tracking-wider small">Overview</span>
+                <h1 class="display-6 fw-bold text-white">Welcome Back, Dr. @(User.Identity?.Name ?? "User")</h1>
+                <p class="text-muted">Here is the latest status of your clinic operations today.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="row g-4 mb-5">
+        <div class="col-12 col-md-4">
+            <div class="crm-card d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted fw-semibold">Total Patients</span>
+                    <div class="icon-indicator bg-primary-subtle text-primary p-2 rounded-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mt-2">
+                    <h2 class="mb-0 fw-extrabold display-6 text-white">1,248</h2>
+                    <span class="text-success small fw-semibold">+4.2%</span>
+                </div>
+                <p class="text-muted small mb-0 mt-1">Total active registered patient profiles</p>
+            </div>
+        </div>
+        
+        <div class="col-12 col-md-4">
+            <div class="crm-card d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted fw-semibold">Appointments Today</span>
+                    <div class="icon-indicator bg-success-subtle text-success p-2 rounded-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mt-2">
+                    <h2 class="mb-0 fw-extrabold display-6 text-white">18</h2>
+                    <span class="text-success small fw-semibold">+12%</span>
+                </div>
+                <p class="text-muted small mb-0 mt-1">Scheduled appointments for today</p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+            <div class="crm-card d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted fw-semibold">Pending Reports</span>
+                    <div class="icon-indicator bg-warning-subtle text-warning p-2 rounded-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    </div>
+                </div>
+                <div class="d-flex align-items-baseline gap-2 mt-2">
+                    <h2 class="mb-0 fw-extrabold display-6 text-white">7</h2>
+                    <span class="text-danger small fw-semibold">Urgent</span>
+                </div>
+                <p class="text-muted small mb-0 mt-1">Lab results requiring physician signature</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions & Recent Logs -->
+    <div class="row g-4">
+        <div class="col-12 col-lg-8">
+            <div class="crm-card h-100">
+                <h3 class="h5 fw-bold text-white mb-4">Upcoming Schedule</h3>
+                <div class="table-responsive">
+                    <table class="table table-dark table-hover mb-0" style="--bs-table-bg: transparent; --bs-table-border-color: rgba(255, 255, 255, 0.05);">
+                        <thead>
+                            <tr class="text-muted small text-uppercase">
+                                <th scope="col">Time</th>
+                                <th scope="col">Patient</th>
+                                <th scope="col">Reason</th>
+                                <th scope="col">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                            <tr>
+                                <td class="fw-semibold text-primary">09:30 AM</td>
+                                <td class="fw-medium">John Doe</td>
+                                <td>General Health Checkup</td>
+                                <td><span class="badge bg-success-subtle text-success border border-success border-opacity-10 px-2 py-1">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-primary">10:15 AM</td>
+                                <td class="fw-medium">Jane Smith</td>
+                                <td>Follow-up - Hypertension</td>
+                                <td><span class="badge bg-success-subtle text-success border border-success border-opacity-10 px-2 py-1">Confirmed</span></td>
+                            </tr>
+                            <tr>
+                                <td class="fw-semibold text-primary">11:00 AM</td>
+                                <td class="fw-medium">Robert Wilson</td>
+                                <td>Flu symptoms check</td>
+                                <td><span class="badge bg-warning-subtle text-warning border border-warning border-opacity-10 px-2 py-1">Pending</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <div class="crm-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <h3 class="h5 fw-bold text-white mb-4">Quick CRM Shortcuts</h3>
+                    <div class="d-flex flex-column gap-3">
+                        <a href="/Patient/Add" class="btn btn-outline-primary text-start d-flex align-items-center gap-2 p-3 rounded-3" style="border-color: rgba(59, 130, 246, 0.3);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+                            <span>Register New Patient</span>
+                        </a>
+                        <a href="/Appointment/Book" class="btn btn-outline-info text-start d-flex align-items-center gap-2 p-3 rounded-3" style="border-color: rgba(6, 182, 212, 0.3);">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="12" y1="14" x2="12" y2="20"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+                            <span>Schedule Appointment</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="text-center text-muted small mt-4 pt-3 border-top" style="border-top-color: rgba(255, 255, 255, 0.05) !important;">
+                    Database status: <span class="text-success fw-semibold">Online</span> (SQLite)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+    .icon-indicator {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .bg-primary-subtle {
+        background-color: rgba(59, 130, 246, 0.15) !important;
+    }
+    .bg-success-subtle {
+        background-color: rgba(16, 185, 129, 0.15) !important;
+    }
+    .bg-warning-subtle {
+        background-color: rgba(245, 158, 11, 0.15) !important;
+    }
+    .text-primary {
+        color: #60a5fa !important;
+    }
+    .text-success {
+        color: #34d399 !important;
+    }
+    .text-warning {
+        color: #fbbf24 !important;
+    }
+    .text-danger {
+        color: #f87171 !important;
+    }
+</style>

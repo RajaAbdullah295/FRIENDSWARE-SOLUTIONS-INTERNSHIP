@@ -1,0 +1,157 @@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/account.css" asp-append-version="true" />
+
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <div class="brand-logo">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="logo-icon"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Sign in to access your Healthcare CRM dashboard</p>
+        </div>
+
+        <div id="alert-box" class="alert-banner d-none"></div>
+
+        <form id="login-form" novalidate>
+            <div class="form-group mb-3">
+                <label for="email">Email Address</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" name="Email" class="form-input" placeholder="john.doe@crm.com" required />
+                </div>
+                <div class="invalid-feedback" id="email-error"></div>
+            </div>
+
+            <div class="form-group mb-4">
+                <div class="label-wrapper d-flex justify-content-between align-items-center">
+                    <label for="password" class="mb-0">Password</label>
+                </div>
+                <div class="input-wrapper">
+                    <input type="password" id="password" name="Password" class="form-input" placeholder="Enter your password" required />
+                </div>
+                <div class="invalid-feedback" id="password-error"></div>
+            </div>
+
+            <button type="submit" id="submit-btn" class="btn-auth">
+                <span class="btn-text">Sign In</span>
+                <span class="btn-spinner d-none"></span>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Don't have an account? <a asp-controller="Account" asp-action="Register">Create New Account</a></p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('login-form');
+            const alertBox = document.getElementById('alert-box');
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = submitBtn.querySelector('.btn-text');
+            const btnSpinner = submitBtn.querySelector('.btn-spinner');
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                resetErrors();
+
+                // Client-side Validation
+                let isValid = true;
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+
+                if (!email) {
+                    showFieldError('email', 'Email Address is required.');
+                    isValid = false;
+                } else if (!validateEmail(email)) {
+                    showFieldError('email', 'Please enter a valid email address.');
+                    isValid = false;
+                }
+
+                if (!password) {
+                    showFieldError('password', 'Password is required.');
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                setLoading(true);
+                try {
+                    const response = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        // 1. Store JWT in localStorage
+                        localStorage.setItem('jwt_token', result.data.token);
+                        localStorage.setItem('user_name', result.data.user.fullName);
+                        localStorage.setItem('user_email', result.data.user.email);
+
+                        // 2. Set Cookie for server-side page authorization
+                        document.cookie = `jwt_token=${result.data.token}; path=/; max-age=604800; SameSite=Strict`;
+
+                        showAlert('Login successful! Redirecting...', 'success');
+                        setTimeout(() => {
+                            window.location.href = '/';
+                        }, 1000);
+                    } else {
+                        const message = result.message || 'Login failed.';
+                        showAlert(message, 'error');
+                        setLoading(false);
+                    }
+                } catch (error) {
+                    showAlert('An error occurred. Please check your network connection.', 'error');
+                    setLoading(false);
+                }
+            });
+
+            function showFieldError(fieldId, message) {
+                const input = document.getElementById(fieldId);
+                const errorDiv = document.getElementById(`${fieldId}-error`);
+                input.classList.add('is-invalid');
+                errorDiv.textContent = message;
+            }
+
+            function resetErrors() {
+                alertBox.className = 'alert-banner d-none';
+                alertBox.innerHTML = '';
+                document.querySelectorAll('.form-input').forEach(el => el.classList.remove('is-invalid'));
+                document.querySelectorAll('.invalid-feedback').forEach(el => el.textContent = '');
+            }
+
+            function showAlert(message, type) {
+                alertBox.className = `alert-banner ${type === 'success' ? 'alert-success' : 'alert-error'}`;
+                alertBox.innerHTML = message;
+            }
+
+            function setLoading(isLoading) {
+                if (isLoading) {
+                    submitBtn.disabled = true;
+                    btnText.classList.add('d-none');
+                    btnSpinner.classList.remove('d-none');
+                } else {
+                    submitBtn.disabled = false;
+                    btnText.classList.remove('d-none');
+                    btnSpinner.classList.add('d-none');
+                }
+            }
+
+            function validateEmail(email) {
+                const re = /^[^\s@@]+@@[^\s@@]+\.[^\s@@]+$/;
+                return re.test(email);
+            }
+        });
+    </script>
+}

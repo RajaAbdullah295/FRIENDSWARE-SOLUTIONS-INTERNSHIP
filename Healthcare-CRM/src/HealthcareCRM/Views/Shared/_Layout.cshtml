@@ -1,0 +1,144 @@
+@using System.IdentityModel.Tokens.Jwt
+@using System.Security.Claims
+@{
+    var token = Context.Request.Cookies["jwt_token"];
+    string? userName = null;
+    bool isLoggedIn = false;
+    if (!string.IsNullOrEmpty(token))
+    {
+        try
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token);
+            userName = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+            isLoggedIn = true;
+        }
+        catch 
+        {
+            // Token is invalid, clear it
+            Context.Response.Cookies.Delete("jwt_token");
+        }
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Healthcare CRM</title>
+    <!-- Modern Typography: Google Fonts Outfit and Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HealthcareCRM.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="app-header">
+        <nav class="navbar navbar-expand-md navbar-toggleable-sm navbar-custom container-fluid px-4">
+            <div class="container-fluid d-flex justify-content-between align-items-center">
+                <a class="navbar-brand d-flex align-items-center gap-2" asp-area="" asp-controller="Home" asp-action="Index">
+                    <div class="brand-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="logo-icon-svg"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <span class="brand-text">Healthcare<span class="brand-accent">CRM</span></span>
+                </a>
+                
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="navbar-collapse collapse d-md-inline-flex justify-content-between">
+                    <ul class="navbar-nav me-auto mb-2 mb-md-0 nav-links-list">
+                        @if (isLoggedIn)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="/Patient/List">Patients</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="/Appointment/List">Appointments</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                        }
+                    </ul>
+                    
+                    <div class="d-flex align-items-center gap-3 auth-nav-section">
+                        @if (isLoggedIn)
+                        {
+                            <div class="user-profile-info d-flex align-items-center gap-2">
+                                <div class="user-avatar">
+                                    @(userName?.Length > 0 ? userName.Substring(0, 1).ToUpper() : "U")
+                                </div>
+                                <span class="welcome-msg text-white">Dr. @userName</span>
+                            </div>
+                            <a class="btn-nav btn-logout" asp-controller="Account" asp-action="Logout" id="logout-btn-link">Logout</a>
+                        }
+                        else
+                        {
+                            <a class="btn-nav btn-login-nav" asp-controller="Account" asp-action="Login">Sign In</a>
+                            <a class="btn-nav btn-register-nav" asp-controller="Account" asp-action="Register">Get Started</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content-wrapper">
+        <main role="main" class="container py-4">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="app-footer border-top text-muted py-3">
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <span>&copy; 2026 - Healthcare CRM. All rights reserved.</span>
+            <div class="footer-links d-flex gap-3">
+                <a href="/api/health" target="_blank" class="footer-link">Health API</a>
+                <span class="text-secondary">|</span>
+                <a href="/swagger" target="_blank" class="footer-link">Swagger Docs</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script>
+        // Synchronize cookies and localStorage
+        (function() {
+            const token = '@token';
+            if (!token) {
+                // If no server token cookie, clear localStorage JWT
+                localStorage.removeItem('jwt_token');
+                localStorage.removeItem('user_name');
+                localStorage.removeItem('user_email');
+            }
+            
+            // Client side logout click interceptor to clear localStorage
+            const logoutBtn = document.getElementById('logout-btn-link');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', () => {
+                    localStorage.removeItem('jwt_token');
+                    localStorage.removeItem('user_name');
+                    localStorage.removeItem('user_email');
+                });
+            }
+        })();
+    </script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

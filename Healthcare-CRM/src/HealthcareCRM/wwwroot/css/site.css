@@ -1,0 +1,299 @@
+/* Healthcare CRM Centralized Stylesheet - site.css */
+
+:root {
+    /* Premium Color Palette (HSL Tailored) */
+    --color-bg: #0b0f19;
+    --color-bg-offset: #111827;
+    --color-card: rgba(20, 30, 54, 0.7);
+    --color-primary: #3b82f6;
+    --color-primary-hover: #1d4ed8;
+    --color-primary-glow: rgba(59, 130, 246, 0.35);
+    --color-text: #f8fafc;
+    --color-text-muted: #94a3b8;
+    --color-text-dark: #0f172a;
+    --color-accent: #06b6d4; /* Cyan */
+    --color-success: #10b981;
+    --color-success-bg: rgba(16, 185, 129, 0.1);
+    --color-danger: #ef4444;
+    --color-danger-bg: rgba(239, 68, 68, 0.1);
+    --color-border: rgba(255, 255, 255, 0.08);
+    
+    /* Typography */
+    --font-heading: 'Outfit', 'Inter', -apple-system, sans-serif;
+    --font-body: 'Inter', -apple-system, sans-serif;
+
+    /* Spacing System */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 48px;
+
+    /* Borders & Shadow */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 9999px;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.4);
+    
+    /* Transitions */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Reset & Core Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Heading Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.25;
+}
+
+/* Header & Glassmorphic Navigation */
+.app-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.navbar-custom {
+    background: rgba(11, 15, 25, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--spacing-sm) 0;
+    transition: var(--transition-normal);
+}
+
+.brand-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border-radius: var(--radius-md);
+    box-shadow: 0 0 15px var(--color-primary-glow);
+}
+
+.logo-icon-svg {
+    width: 20px;
+    height: 20px;
+    color: white;
+}
+
+.brand-text {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+    color: var(--color-text);
+}
+
+.brand-accent {
+    color: var(--color-primary);
+}
+
+.nav-link-custom {
+    color: var(--color-text-muted) !important;
+    font-weight: 500;
+    padding: var(--spacing-sm) var(--spacing-md) !important;
+    border-radius: var(--radius-sm);
+    transition: var(--transition-fast);
+}
+
+.nav-link-custom:hover, 
+.nav-link-custom.active {
+    color: var(--color-text) !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Auth Buttons in Nav */
+.btn-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 0.875rem;
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.btn-login-nav {
+    color: var(--color-text-muted);
+}
+
+.btn-login-nav:hover {
+    color: var(--color-text);
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-register-nav {
+    background-color: var(--color-primary);
+    color: white !important;
+    box-shadow: 0 4px 12px var(--color-primary-glow);
+}
+
+.btn-register-nav:hover {
+    background-color: var(--color-primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-logout {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger) !important;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-logout:hover {
+    background-color: var(--color-danger);
+    color: white !important;
+}
+
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.875rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.welcome-msg {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Layout Main Content Wrapper */
+.main-content-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Premium Card Styles */
+.crm-card {
+    background: var(--color-card);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-normal);
+}
+
+.crm-card:hover {
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Footer Styling */
+.app-footer {
+    background-color: var(--color-bg-offset);
+    border-top: 1px solid var(--color-border) !important;
+    color: var(--color-text-muted) !important;
+    font-size: 0.85rem;
+}
+
+.footer-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: var(--transition-fast);
+}
+
+.footer-link:hover {
+    color: var(--color-primary);
+}
+
+/* Custom Alert Banners */
+.alert-banner {
+    padding: var(--spacing-md);
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.4;
+    border: 1px solid transparent;
+}
+
+.alert-success {
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.alert-error {
+    background-color: var(--color-danger-bg);
+    color: var(--color-danger);
+    border-color: rgba(239, 68, 68, 0.2);
+}
+
+/* Loading Spinners */
+.btn-spinner {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    vertical-align: text-bottom;
+    border: 0.2em solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    animation: spinner-border .75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
